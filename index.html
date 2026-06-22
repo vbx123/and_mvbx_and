@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مكتبة الخطب والمواعظ الإسلامية</title>
+    <title>مكتبة الخطب والمواعظ</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
 
         :root {
-            --primary-color: #1b4d3e; 
-            --secondary-color: #c5a880; 
-            --bg-color: #f4f6f5;
+            --primary: #1b4d3e;
+            --primary-light: #256b57;
+            --secondary: #c5a880;
+            --bg: #f4f6f5;
             --card-bg: #ffffff;
-            --text-color: #333333;
+            --text: #333333;
+            --text-muted: #777777;
         }
 
         * {
@@ -23,152 +25,384 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            padding-bottom: 50px;
+            background-color: var(--bg);
+            color: var(--text);
+            padding-bottom: 30px;
         }
 
+        /* رأس الصفحة */
         header {
-            background: linear-gradient(135deg, var(--primary-color), #0f3025);
+            background: linear-gradient(135deg, var(--primary), #0f3025);
             color: white;
             text-align: center;
-            padding: 40px 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-bottom: 4px solid var(--secondary-color);
+            padding: 30px 20px;
+            border-bottom: 4px solid var(--secondary);
         }
 
-        header h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
+        header h1 { font-size: 1.8rem; margin-bottom: 5px; }
 
         .container {
             max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .lectures-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        .video-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            border: 1px solid #eaeaea;
-        }
-
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; 
-            height: 0;
-            overflow: hidden;
-            background-color: #000;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        .video-details {
+            margin: 0 auto;
             padding: 20px;
         }
 
-        .video-title {
-            font-size: 1.1rem;
+        /* قسم البحث والفلاتر */
+        .controls-section {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box:focus { border-color: var(--primary); }
+
+        .filters-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #eaeaea;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* شبكة الكروت */
+        .lectures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.04);
+            border: 1px solid #eaeaea;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .thumb-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+        }
+
+        .thumb-container img {
+            position: absolute;
+            top:0; left:0; width:100%; height:100%;
+            object-fit: cover;
+        }
+
+        .card-details {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 1rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--text);
             margin-bottom: 10px;
-            line-height: 1.5;
-            height: 50px;
+            line-height: 1.4;
+            height: 42px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
-        .video-speaker {
+        .speaker-badge {
+            align-self: flex-start;
+            font-size: 0.8rem;
+            color: var(--primary);
+            background: #edf5f2;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .watch-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .watch-btn:hover { background: var(--primary-light); }
+
+        /* صفحة العرض الداخلية (مخفية افتراضياً) */
+        .details-page {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        .back-btn {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .inner-player-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #000;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .inner-player-container iframe {
+            position: absolute;
+            top:0; left:0; width:100%; height:100%; border:0;
+        }
+
+        .inner-title {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .inner-speaker {
             display: inline-block;
             font-size: 0.9rem;
-            color: #ffffff;
-            background-color: var(--secondary-color);
+            background: var(--secondary);
+            color: white;
             padding: 4px 12px;
             border-radius: 20px;
-            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .youtube-redirect-btn {
+            display: block;
+            text-align: center;
+            background: #e62117;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            transition: background 0.3s;
+        }
+
+        .youtube-redirect-btn:hover { background: #cc1810; }
+
+        .summary-box {
+            background: var(--bg);
+            padding: 20px;
+            border-radius: 8px;
+            border-right: 4px solid var(--primary);
+            line-height: 1.6;
+        }
+
+        .summary-box h4 { margin-bottom: 8px; color: var(--primary); }
+
+        @media (max-width: 600px) {
+            .controls-section { padding: 15px; }
+            .inner-title { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>مكتبة المرئيات والخطب الإسلامية</h1>
-        <p>مجموعة مختارة من المواعظ والدروس الشغالة والمتاحة للتضمين</p>
+        <h1>مكتبة الخطب والمواعظ الإسلامية</h1>
     </header>
 
     <div class="container">
-        <div class="lectures-grid">
-
-            <div class="video-card">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/LxSwWwBCuHY" allowfullscreen></iframe>
-                </div>
-                <div class="video-details">
-                    <h3 class="video-title">أرهقتني الذنوب أتوب وأعود، فما هو الحل؟</h3>
-                    <span class="video-speaker">الشيخ سمير مصطفى</span>
-                </div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/Xq_Eee0-Z9g" allowfullscreen></iframe>
-                </div>
-                <div class="video-details">
-                    <h3 class="video-title">موعظة مؤثرة تهز القلوب وتغير حياتك</h3>
-                    <span class="video-speaker">الشيخ منصور السالمي</span>
+        
+        <div id="main-view">
+            <div class="controls-section">
+                <input type="text" id="search-input" class="search-box" placeholder="ابحث عن عنوان الخطبة أو الشيخ...">
+                <div class="filters-group" id="filters-container">
+                    <button class="filter-btn active" onclick="filterSpeaker('all')">الكل</button>
+                    <button class="filter-btn" onclick="filterSpeaker('الشيخ سمير مصطفى')">الشيخ سمير مصطفى</button>
+                    <button class="filter-btn" onclick="filterSpeaker('الشيخ محمد راتب النابلسي')">الشيخ النابلسي</button>
+                    <button class="filter-btn" onclick="filterSpeaker('الشيخ محمد متولي الشعراوي')">الشيخ الشعراوي</button>
                 </div>
             </div>
 
-            <div class="video-card">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/g8fH8_eYc-U" allowfullscreen></iframe>
+            <div class="lectures-grid" id="grid-container">
                 </div>
-                <div class="video-details">
-                    <h3 class="video-title">كيف تتغلب على وساوس الشيطان وضيق الصدر؟</h3>
-                    <span class="video-speaker">الشيخ سعد العتيق</span>
-                </div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/7D6gCH_GNoE" allowfullscreen></iframe>
-                </div>
-                <div class="video-details">
-                    <h3 class="video-title">علاج الهم والغم والابتلاء في الحياة</h3>
-                    <span class="video-speaker">الشيخ نبيل العوضي</span>
-                </div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/Lw991X9C_hE" allowfullscreen></iframe>
-                </div>
-                <div class="video-details">
-                    <h3 class="video-title">قصص عجيبة عن الاستغفار وسعة الرزق</h3>
-                    <span class="video-speaker">الشيخ مشاري الخراز</span>
-                </div>
-            </div>
-
         </div>
+
+        <div id="details-view" class="details-page">
+            <button class="back-btn" onclick="showMainView()">→ رجوع للمكتبة</button>
+            <div class="inner-player-container">
+                <iframe id="main-player" src="" allowfullscreen></iframe>
+            </div>
+            <h2 id="inner-title" class="inner-title"></h2>
+            <span id="inner-speaker" class="inner-speaker"></span>
+            
+            <a id="youtube-link" href="#" target="_blank" class="youtube-redirect-btn">فتح الفيديو عبر تطبيق يوتيوب 📱</a>
+            
+            <div class="summary-box">
+                <h4>ملخص الوعظ والإرشاد:</h4>
+                <p id="inner-summary"></p>
+            </div>
+        </div>
+
     </div>
 
+    <script>
+        // مصفوفة البيانات الضخمة التي تحتوي على الفيديوهات وملخصاتها
+        const data = [
+            {
+                id: "LxSwWwBCuHY",
+                title: "أرهقتني الذنوب أتوب وأعود، فما هو الحل؟",
+                speaker: "الشيخ سمير مصطفى",
+                summary: "تتناول هذه الموعظة مشكلة تكرار الذنوب بعد التوبة والشعور باليأس والإرهاق النفسي. يوجه الشيخ نصيحة قائمة على مفهوم الافتقار والعبودية الكاملة لله، وضرورة مداومة الاستغفار والإكثار من الحسنات الماحية والوضوء وانتظار الصلاة لتطهير الفطرة والقلب."
+            },
+            {
+                id: "S_8N-S88yT0",
+                title: "كيف تتعامل مع البلاء والابتلاء في الحياة؟",
+                speaker: "الشيخ محمد راتب النابلسي",
+                summary: "يشرح الشيخ في هذا الدرس الفارق بين الابتلاء كعقوبة والابتلاء كترقية للمؤمن، موضحاً القواعد القرآنية لطمأنينة النفس ورؤية الحكمة الإلهية الكامنة وراء كل شدة ومحنة يمر بها الإنسان في دنياه."
+            },
+            {
+                id: "tyFqgE7p2_c",
+                title: "أجمل خطبة عن الصبر وجبر الخواطر",
+                speaker: "الشيخ محمد متولي الشعراوي",
+                summary: "خواطر إيمانية لفضيلة الشيخ الشعراوي حول عظمة الصبر، وكيف يجازي الله الصابرين بجبر من عنده يفوق توقعاتهم، مع الاستدلال بآيات القرآن الكريم وقصص الأنبياء في مواجهة الشدائد."
+            },
+            {
+                id: "g7R0PAt7eIs",
+                title: "مفاتيح الرزق والبركة في البيوت والمال",
+                speaker: "الشيخ محمد راتب النابلسي",
+                summary: "يتحدث الشيخ عن الأسباب الشرعية لجلب الرزق وتوسيع البركة في المنازل، ومنها صلة الرحم، الاستغفار، وتقوى الله في البيوع والمعاملات اليومية."
+            },
+            {
+                id: "XG-pGst1jX4",
+                title: "تفسير خواطر سورة الفاتحة وأسرارها العميقة",
+                speaker: "الشيخ محمد متولي الشعراوي",
+                summary: "تفسير رائع يبحر في معاني أم الكتاب (سورة الفاتحة)، مبيناً أسرار الشفاء والاتصال المباشر بين العبد وربه أثناء الصلاة وقيمة التدبر فيها."
+            }
+        ];
+
+        let currentSpeakerFilter = 'all';
+
+        // دالة بناء الكروت وعرضها في الصفحة الرئيسية
+        function renderCards() {
+            const grid = document.getElementById('grid-container');
+            const searchTxt = document.getElementById('search-input').value.toLowerCase();
+            grid.innerHTML = '';
+
+            data.forEach(item => {
+                const matchSearch = item.title.toLowerCase().includes(searchTxt) || item.speaker.toLowerCase().includes(searchTxt);
+                const matchFilter = (currentSpeakerFilter === 'all' || item.speaker === currentSpeakerFilter);
+
+                if (matchSearch && matchFilter) {
+                    // رابط جلب صورة الفيديو من يوتيوب بجودة عالية تلقائياً بناء على الـ ID
+                    const thumbUrl = `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`;
+                    
+                    const card = document.createElement('div');
+                    card.className = 'video-card';
+                    card.innerHTML = `
+                        <div class="thumb-container">
+                            <img src="${thumbUrl}" alt="${item.title}">
+                        </div>
+                        <div class="card-details">
+                            <h3 class="card-title">${item.title}</h3>
+                            <span class="speaker-badge">${item.speaker}</span>
+                            <button class="watch-btn" onclick="openVideo('${item.id}')">مشاهدة الموعظة</button>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                }
+            });
+        }
+
+        // الانتقال لصفحة العرض الداخلية وتعبئة البيانات
+        function openVideo(id) {
+            const item = data.find(x => x.id === id);
+            if (!item) return;
+
+            document.getElementById('main-player').src = `https://www.youtube.com/embed/${item.id}`;
+            document.getElementById('inner-title').innerText = item.title;
+            document.getElementById('inner-speaker').innerText = item.speaker;
+            document.getElementById('inner-summary').innerText = item.summary;
+            document.getElementById('youtube-link').href = `https://youtu.be/${item.id}`;
+
+            document.getElementById('main-view').style.display = 'none';
+            document.getElementById('details-view').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        // العودة للرئيسية
+        function showMainView() {
+            document.getElementById('main-player').src = ''; // لإيقاف تشغيل الفيديو عند الخروج
+            document.getElementById('details-view').style.display = 'none';
+            document.getElementById('main-view').style.display = 'block';
+        }
+
+        // إدارة فلاتر الشيوخ
+        function filterSpeaker(speaker) {
+            currentSpeakerFilter = speaker;
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            renderCards();
+        }
+
+        // تفعيل البحث الحي أثناء الكتابة
+        document.getElementById('search-input').addEventListener('input', renderCards);
+
+        // التشغيل الأولي للصفحة
+        renderCards();
+    </script>
 </body>
     </html>
