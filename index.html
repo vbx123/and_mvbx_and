@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مكتبة الخطب والمواعظ</title>
+    <title>خطب ومواعظ</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
 
@@ -27,87 +27,85 @@
         body {
             background-color: var(--bg);
             color: var(--text);
-            padding-bottom: 30px;
         }
 
-        /* رأس الصفحة */
+        /* تصغير البار العلوي وتعديل النص */
         header {
             background: linear-gradient(135deg, var(--primary), #0f3025);
             color: white;
             text-align: center;
-            padding: 30px 20px;
-            border-bottom: 4px solid var(--secondary);
+            padding: 15px 10px; /* بار نحيف واحترافي */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-bottom: 2px solid var(--secondary);
         }
 
-        header h1 { font-size: 1.8rem; margin-bottom: 5px; }
+        header h1 { 
+            font-size: 1.3rem; 
+            font-weight: 700;
+        }
 
+        /* الحاوية الرئيسية ممتدة بالكامل بدون مساحات جانبية ضائعة */
         .container {
-            max-width: 1200px;
+            width: 100%;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0; /* بدون padding في الأطراف */
         }
 
-        /* قسم البحث والفلاتر */
+        /* قسم التحكم (البحث والقائمة المنسدلة) */
         .controls-section {
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
+            padding: 12px 15px;
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            gap: 10px;
+            align-items: center;
+            border-bottom: 1px solid #eaeaea;
         }
 
         .search-box {
-            width: 100%;
-            padding: 12px 20px;
-            border: 2px solid #e0e0e0;
+            flex: 2;
+            padding: 10px 15px;
+            border: 1px solid #ccd1d1;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             outline: none;
-            transition: border-color 0.3s;
         }
 
-        .search-box:focus { border-color: var(--primary); }
-
-        .filters-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background: #eaeaea;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 500;
+        /* القائمة المنسدلة بدلاً من الأزرار المتناثرة */
+        .filter-select {
+            flex: 1;
+            padding: 10px 10px;
+            border: 1px solid #ccd1d1;
+            border-radius: 8px;
             font-size: 0.9rem;
-            transition: all 0.3s;
+            background-color: white;
+            outline: none;
+            color: var(--text);
+            cursor: pointer;
         }
 
-        .filter-btn.active, .filter-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* شبكة الكروت */
+        /* شبكة الكروت على الخلفية مباشرة وبدون مسافات أفقية مبالغ فيها */
         .lectures-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+            gap: 15px;
+            padding: 15px; /* مسافة بسيطة بين الكروت نفسها */
         }
 
+        @media (min-width: 480px) {
+            .lectures-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+
+        /* كارت الفيديو مدمج وأنيق */
         .video-card {
             background: var(--card-bg);
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
             border: 1px solid #eaeaea;
-            display: flex;
-            flex-direction: column;
+            position: relative;
         }
 
         .thumb-container {
@@ -123,36 +121,51 @@
             object-fit: cover;
         }
 
+        /* زر المفضلة (القلب) فوق الكارت بشكل احترافي */
+        .fav-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 1.2rem;
+            color: #ccc;
+            transition: color 0.2s, transform 0.2s;
+            z-index: 5;
+        }
+        .fav-btn.is-fav {
+            color: #e62117;
+        }
+
         .card-details {
             padding: 15px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            justify-content: space-between;
         }
 
         .card-title {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: var(--text);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             line-height: 1.4;
-            height: 42px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
 
         .speaker-badge {
-            align-self: flex-start;
+            display: inline-block;
             font-size: 0.8rem;
             color: var(--primary);
             background: #edf5f2;
-            padding: 4px 10px;
-            border-radius: 15px;
+            padding: 3px 8px;
+            border-radius: 4px;
             font-weight: 500;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .watch-btn {
@@ -164,44 +177,22 @@
             border-radius: 6px;
             font-weight: 700;
             cursor: pointer;
-            text-align: center;
-            transition: background 0.3s;
         }
 
-        .watch-btn:hover { background: var(--primary-light); }
-
-        /* صفحة العرض الداخلية (مخفية افتراضياً) */
+        /* ==================== صفحة العرض الداخلية الكاملة Edge-to-Edge ==================== */
         .details-page {
             display: none;
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-            padding: 20px;
-            margin-top: 10px;
+            background: var(--bg); /* على الخلفية مباشرة */
+            width: 100%;
+            min-height: 100vh;
         }
 
-        .back-btn {
-            background: #333;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            margin-bottom: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
+        /* المشغل في الأعلى ممتد 100% وبحجم كبير ممتاز للرؤية */
         .inner-player-container {
             position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
+            width: 100%;
+            padding-bottom: 56.25%; /* أبعاد 16:9 ممتدة بالكامل للأطراف */
             background: #000;
-            border-radius: 8px;
-            margin-bottom: 20px;
         }
 
         .inner-player-container iframe {
@@ -209,20 +200,47 @@
             top:0; left:0; width:100%; height:100%; border:0;
         }
 
+        /* زر عودة دائري صغير وأنيق يطفو فوق الفيديو */
+        .back-btn-small {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            z-index: 10;
+            transition: background 0.2s;
+        }
+        .back-btn-small:hover { background: rgba(0, 0, 0, 0.8); }
+
+        /* تفاصيل الفيديو بالأسفل منسقة على الخلفية بدون صناديق محجمة */
+        .inner-content {
+            padding: 15px;
+        }
+
         .inner-title {
-            font-size: 1.4rem;
-            color: var(--primary);
+            font-size: 1.2rem;
+            color: #111;
+            font-weight: 700;
             margin-bottom: 8px;
+            line-height: 1.4;
         }
 
         .inner-speaker {
             display: inline-block;
-            font-size: 0.9rem;
-            background: var(--secondary);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: var(--secondary);
+            font-weight: 700;
+            margin-bottom: 15px;
         }
 
         .youtube-redirect-btn {
@@ -232,47 +250,45 @@
             color: white;
             text-decoration: none;
             padding: 12px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 700;
             margin-bottom: 20px;
-            transition: background 0.3s;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(230,33,23,0.2);
         }
-
-        .youtube-redirect-btn:hover { background: #cc1810; }
 
         .summary-box {
-            background: var(--bg);
-            padding: 20px;
-            border-radius: 8px;
-            border-right: 4px solid var(--primary);
             line-height: 1.6;
+            font-size: 0.95rem;
+            color: #444;
         }
 
-        .summary-box h4 { margin-bottom: 8px; color: var(--primary); }
-
-        @media (max-width: 600px) {
-            .controls-section { padding: 15px; }
-            .inner-title { font-size: 1.1rem; }
+        .summary-box h4 { 
+            margin-bottom: 6px; 
+            color: var(--primary);
+            font-size: 1rem;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>مكتبة الخطب والمواعظ الإسلامية</h1>
+    <header id="main-header">
+        <h1>خطب ومواعظ</h1>
     </header>
 
     <div class="container">
         
         <div id="main-view">
             <div class="controls-section">
-                <input type="text" id="search-input" class="search-box" placeholder="ابحث عن عنوان الخطبة أو الشيخ...">
-                <div class="filters-group" id="filters-container">
-                    <button class="filter-btn active" onclick="filterSpeaker('all')">الكل</button>
-                    <button class="filter-btn" onclick="filterSpeaker('الشيخ سمير مصطفى')">الشيخ سمير مصطفى</button>
-                    <button class="filter-btn" onclick="filterSpeaker('الشيخ محمد راتب النابلسي')">الشيخ النابلسي</button>
-                    <button class="filter-btn" onclick="filterSpeaker('الشيخ محمد متولي الشعراوي')">الشيخ الشعراوي</button>
-                </div>
+                <input type="text" id="search-input" class="search-box" placeholder="ابحث عن خطبة أو شيخ...">
+                
+                <select id="filter-select" class="filter-select" onchange="handleFilterChange()">
+                    <option value="all">كل الشيوخ</option>
+                    <option value="favorites">❤️ المفضلة</option>
+                    <option value="الشيخ سمير مصطفى">الشيخ سمير مصطفى</option>
+                    <option value="الشيخ محمد راتب النابلسي">الشيخ النابلسي</option>
+                    <option value="الشيخ محمد متولي الشعراوي">الشيخ الشعراوي</option>
+                </select>
             </div>
 
             <div class="lectures-grid" id="grid-container">
@@ -280,31 +296,34 @@
         </div>
 
         <div id="details-view" class="details-page">
-            <button class="back-btn" onclick="showMainView()">→ رجوع للمكتبة</button>
             <div class="inner-player-container">
+                <button class="back-btn-small" onclick="showMainView()">✕</button>
                 <iframe id="main-player" src="" allowfullscreen></iframe>
             </div>
-            <h2 id="inner-title" class="inner-title"></h2>
-            <span id="inner-speaker" class="inner-speaker"></span>
             
-            <a id="youtube-link" href="#" target="_blank" class="youtube-redirect-btn">فتح الفيديو عبر تطبيق يوتيوب 📱</a>
-            
-            <div class="summary-box">
-                <h4>ملخص الوعظ والإرشاد:</h4>
-                <p id="inner-summary"></p>
+            <div class="inner-content">
+                <h2 id="inner-title" class="inner-title"></h2>
+                <span id="inner-speaker" class="inner-speaker"></span>
+                
+                <a id="youtube-link" href="#" target="_blank" class="youtube-redirect-btn">فتح الفيديو في يوتيوب 📱</a>
+                
+                <div class="summary-box">
+                    <h4>ملخص الموعظة:</h4>
+                    <p id="inner-summary"></p>
+                </div>
             </div>
         </div>
 
     </div>
 
     <script>
-        // مصفوفة البيانات الضخمة التي تحتوي على الفيديوهات وملخصاتها
+        // مصفوفة البيانات مع إضافة حقل معرف فريد لتسهيل الحفظ بالمفضلة
         const data = [
             {
                 id: "LxSwWwBCuHY",
                 title: "أرهقتني الذنوب أتوب وأعود، فما هو الحل؟",
                 speaker: "الشيخ سمير مصطفى",
-                summary: "تتناول هذه الموعظة مشكلة تكرار الذنوب بعد التوبة والشعور باليأس والإرهاق النفسي. يوجه الشيخ نصيحة قائمة على مفهوم الافتقار والعبودية الكاملة لله، وضرورة مداومة الاستغفار والإكثار من الحسنات الماحية والوضوء وانتظار الصلاة لتطهير الفطرة والقلب."
+                summary: "تتناول هذه الموعظة مشكلة تكرار الذنوب بعد التوبة والشعور باليأس والإرهاق النفسي. يوجه الشيخ نصيحة قائمة على مفهوم الافتقار والعبودية الكاملة لله، وضرورة مداومة الاستغفار والإكثار من الحسنات الماحية والوضوء لتطهير الفطرة والقلب."
             },
             {
                 id: "S_8N-S88yT0",
@@ -332,25 +351,32 @@
             }
         ];
 
-        let currentSpeakerFilter = 'all';
+        // مصفوفة لتخزين معرفات الفيديوهات المفضلة (تعتمد على التخزين المحلي للمتصفح LocalStorage للحفاظ عليها حتى بعد غلق التطبيق)
+        let favorites = JSON.parse(localStorage.getItem('fav_lectures')) || [];
 
-        // دالة بناء الكروت وعرضها في الصفحة الرئيسية
         function renderCards() {
             const grid = document.getElementById('grid-container');
             const searchTxt = document.getElementById('search-input').value.toLowerCase();
+            const filterValue = document.getElementById('filter-select').value;
             grid.innerHTML = '';
 
             data.forEach(item => {
                 const matchSearch = item.title.toLowerCase().includes(searchTxt) || item.speaker.toLowerCase().includes(searchTxt);
-                const matchFilter = (currentSpeakerFilter === 'all' || item.speaker === currentSpeakerFilter);
+                
+                let matchFilter = false;
+                if (filterValue === 'all') matchFilter = true;
+                else if (filterValue === 'favorites') matchFilter = favorites.includes(item.id);
+                else matchFilter = (item.speaker === filterValue);
 
                 if (matchSearch && matchFilter) {
-                    // رابط جلب صورة الفيديو من يوتيوب بجودة عالية تلقائياً بناء على الـ ID
                     const thumbUrl = `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`;
+                    const isFav = favorites.includes(item.id) ? 'is-fav' : '';
+                    const favIcon = favorites.includes(item.id) ? '❤️' : '🤍';
                     
                     const card = document.createElement('div');
                     card.className = 'video-card';
                     card.innerHTML = `
+                        <button class="fav-btn ${isFav}" onclick="toggleFavorite('${item.id}', event)">${favIcon}</button>
                         <div class="thumb-container">
                             <img src="${thumbUrl}" alt="${item.title}">
                         </div>
@@ -365,7 +391,22 @@
             });
         }
 
-        // الانتقال لصفحة العرض الداخلية وتعبئة البيانات
+        // إضافة أو حذف الفيديو من المفضلة وحفظه في ذاكرة الهاتف
+        function toggleFavorite(id, event) {
+            event.stopPropagation(); // منع فتح الفيديو عند الضغط على القلب
+            if (favorites.includes(id)) {
+                favorites = favorites.filter(favId => favId !== id);
+            } else {
+                favorites.push(id);
+            }
+            localStorage.setItem('fav_lectures', JSON.stringify(favorites));
+            renderCards();
+        }
+
+        function handleFilterChange() {
+            renderCards();
+        }
+
         function openVideo(id) {
             const item = data.find(x => x.id === id);
             if (!item) return;
@@ -376,32 +417,22 @@
             document.getElementById('inner-summary').innerText = item.summary;
             document.getElementById('youtube-link').href = `https://youtu.be/${item.id}`;
 
+            document.getElementById('main-header').style.display = 'none'; // إخفاء بار العناوين في صفحة المشاهدة
             document.getElementById('main-view').style.display = 'none';
             document.getElementById('details-view').style.display = 'block';
             window.scrollTo(0, 0);
         }
 
-        // العودة للرئيسية
         function showMainView() {
-            document.getElementById('main-player').src = ''; // لإيقاف تشغيل الفيديو عند الخروج
+            document.getElementById('main-player').src = ''; 
             document.getElementById('details-view').style.display = 'none';
+            document.getElementById('main-header').style.display = 'block';
             document.getElementById('main-view').style.display = 'block';
         }
 
-        // إدارة فلاتر الشيوخ
-        function filterSpeaker(speaker) {
-            currentSpeakerFilter = speaker;
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            
-            event.target.classList.add('active');
-            renderCards();
-        }
-
-        // تفعيل البحث الحي أثناء الكتابة
         document.getElementById('search-input').addEventListener('input', renderCards);
 
-        // التشغيل الأولي للصفحة
+        // التشغيل الأولي
         renderCards();
     </script>
 </body>
