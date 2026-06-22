@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبة الخطب والمواعظ الإسلامية</title>
+    <style>
+        /* إعدادات الخطوط والألوان الأساسية */
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+        :root {
+            --primary-color: #1b4d3e; /* أخضر إسلامي فاخر */
+            --secondary-color: #c5a880; /* ذهبي هادئ */
+            --bg-color: #f4f6f5;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --text-muted: #666666;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-bottom: 50px;
+        }
+
+        /* الهيدر (رأس الصفحة) */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #0f3025);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-bottom: 4px solid var(--secondary-color);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+        }
+
+        /* الحاوية الرئيسية للشبكة */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .lectures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* كارت الخطبة */
+        .video-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #eaeaea;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+
+        /* حاوية المشغل لجعل الفيديو مرن (Responsive) */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* نسبة أبعاد 16:9 */
+            height: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* تفاصيل الكارت */
+        .video-details {
+            padding: 20px;
+        }
+
+        .video-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            line-height: 1.5;
+            height: 50px; /* توحيد الطول */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-speaker {
+            display: inline-block;
+            font-size: 0.9rem;
+            color: #ffffff;
+            background-color: var(--secondary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        /* التذييل */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* توافق الشاشات الصغيرة */
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.7rem; }
+            .lectures-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>مكتبة المرئيات والخطب الإسلامية</h1>
+        <p>مجموعة مختارة من المواعظ والدروس لأبرز الشيوخ والعلماء</p>
+    </header>
+
+    <div class="container">
+        <div class="lectures-grid">
+
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/S_8N-S88yT0" allowfullscreen></iframe>
+                </div>
+                <div class="video-details">
+                    <h3 class="video-title">كيف تتعامل مع البلاء والابتلاء في الحياة؟</h3>
+                    <span class="video-speaker">الشيخ محمد راتب النابلسي</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/tyFqgE7p2_c" allowfullscreen></iframe>
+                </div>
+                <div class="video-details">
+                    <h3 class="video-title">أجمل خطبة عن الصبر وجبر الخواطر</h3>
+                    <span class="video-speaker">الشيخ محمد متولي الشعراوي</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/8v8Vp3zVpxU" allowfullscreen></iframe>
+                </div>
+                <div class="video-details">
+                    <h3 class="video-title">الوصايا السبع لحياة مطمئنة وراحة البال</h3>
+                    <span class="video-speaker">د. عمر عبد الكافي</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/tM-Cun27RzE" allowfullscreen></iframe>
+                </div>
+                <div class="video-details">
+                    <h3 class="video-title">قصة مؤثرة جداً تبكي القلوب عن التوبة</h3>
+                    <span class="video-speaker">الشيخ بدر المشاري</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/g7R0PAt7eIs" allowfullscreen></iframe>
+                </div>
+                <div class="video-details">
+                    <h3 class="video-title">مفاتيح الرزق والبركة في البيوت</h3>
+                    <span class="video-speaker">الشيخ محمد راتب النابلسي</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/XG-pGst1jX4" allowfullscreen></iframe>
+                </div>
+                <div class="video-details">
+                    <h3 class="video-title">تفسير خواطر سورة الفاتحة وأسرارها</h3>
+                    <span class="video-speaker">الشيخ محمد متولي الشعراوي</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/gV16t0x91pQ" allowfullscreen></iframe>
+                </div>
+                <div class="video-details">
+                    <h3 class="video-title">كيف تبدأ صفحة جديدة مع الله؟</h3>
+                    <span class="video-speaker">د. عمر عبد الكافي</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/uG67gA0qG9U" allowfullscreen></iframe>
+                </div>
+                <div class="video-details">
+                    <h3 class="video-title">سيرة الصديق أبو بكر رضي الله عنه</h3>
+                    <span class="video-speaker">الشيخ بدر المشاري</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/bNshZ8V87wQ" allowfullscreen></iframe>
+                </div>
+                <div class="video-details">
+                    <h3 class="video-title">علاج ضيق الصدر والهموم والأحزان</h3>
+                    <span class="video-speaker">الشيخ محمد راتب النابلسي</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/I-R9WwreEwQ" allowfullscreen></iframe>
+                </div>
+                <div class="video-details">
+                    <h3 class="video-title">حقيقة الدنيا والآخرة وكيف توازن بينهما</h3>
+                    <span class="video-speaker">الشيخ محمد متولي الشعراوي</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة ومملوكة لأصحاب القنوات الأصلية على يوتيوب © 2026</p>
+    </footer>
+
+</body>
+</html>
